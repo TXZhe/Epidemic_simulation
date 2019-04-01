@@ -21,16 +21,10 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="commonvariables.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="net_work.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="immunity.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="process.h">
+    <ClInclude Include="SIS.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,13 +38,7 @@
     <ClCompile Include="net_work.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="process_halftime.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="immunity_edge.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="immunity_node.cpp">
+    <ClCompile Include="SIS.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

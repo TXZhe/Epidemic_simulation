@@ -147,19 +147,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="commonvariables.h" />
-    <ClInclude Include="immunity.h" />
     <ClInclude Include="net_work.h" />
-    <ClInclude Include="process.h" />
+    <ClInclude Include="SIS.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="immunity_edge.cpp" />
-    <ClCompile Include="immunity_node.cpp" />
     <ClCompile Include="net_work.cpp" />
-    <ClCompile Include="process_halftime.cpp" />
     <ClCompile Include="simulation.cpp" />
+    <ClCompile Include="SIS.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

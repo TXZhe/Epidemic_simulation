@@ -2,8 +2,9 @@
 #include "net_work.h"
 
 
-net_work::net_work()
+net_work::net_work(int u)
 {
+	USRNUM = u;
 	adjacent_table.resize(USRNUM);			//初始化邻接表长度
 	edge_num = 0;
 	node_num = 0;
@@ -20,17 +21,17 @@ net_work::~net_work()
 {
 }
 
-void net_work::add_edge(int a, int b)		//添加边
+void net_work::add_edge(int a, int b, int l)		//添加边
 {
 	if (min(a, b) < 0 || max(a, b) >= USRNUM)
 	{
 		return;
 	}
-	vector<int>::iterator tmp = find(adjacent_table[a].begin(), adjacent_table[a].end(), b);
+	unordered_map<int, int>::iterator tmp = adjacent_table[a].find(b);
 	if (tmp == adjacent_table[a].end())
 	{
-		adjacent_table[a].push_back(b);
-		adjacent_table[b].push_back(a);
+		adjacent_table[a][b] = l;
+		adjacent_table[b][a] = l;
 		edge_num++;
 		if (adjacent_table[a].size() == 1)
 		{
@@ -54,10 +55,17 @@ int net_work::neighbors_num(int a)			//返回指定节点邻居数量
 	return(int(adjacent_table[a].size()));
 }
 
-bool net_work::check_edge(int a, int b)		//检查是否有这个边
+int net_work::check_edge(int a, int b)		//检查是否有这个边
 {
-	vector<int>::iterator tmp = find(adjacent_table[a].begin(), adjacent_table[a].end(), b);
-	return (tmp != adjacent_table[a].end());
+	unordered_map<int, int>::iterator tmp = adjacent_table[a].find(b);
+	if (tmp != adjacent_table[a].end())
+	{
+		return tmp->second;
+	}
+	else
+	{
+		return -1;
+	}
 }
 
 bool net_work::check_node(int a)
@@ -72,9 +80,9 @@ bool net_work::check_node(int a)
 	}
 }
 
-int net_work::find_edge_by_index(int a, int index)	//按序号找指定边
+unordered_map<int, int> net_work::neighbors(int a)
 {
-	return (adjacent_table[a][index]);
+	return(adjacent_table[a]);
 }
 
 void net_work::clear()
@@ -90,17 +98,32 @@ void net_work::print()
 {
 	for (int i = 0; i < adjacent_table.size(); i++)
 	{
-		if (adjacent_table[i].size() != 0)
+		if (!adjacent_table[i].empty())
 		{
 			cout << i << ": ";
-			for (int j = 0; j < adjacent_table[i].size(); j++)
+			for (unordered_map<int, int>::iterator itr = adjacent_table[i].begin(); itr != adjacent_table[i].end(); itr++)
 			{
-				cout << adjacent_table[i][j] << ' ';
+				cout << '(' << itr->first << ',' << itr->second << ')';
 			}
 			cout << endl;
 		}
 	}
-	
+
 	cout << "nodes=" << node_num << " edges=" << edge_num << endl;
 	cout << endl;
+}
+
+void net_work::print_to_file(fstream &fout, int ts)
+{
+	for (int i = 0; i < adjacent_table.size(); i++)
+	{
+		if (!adjacent_table[i].empty())
+		{
+			for (unordered_map<int, int>::iterator itr = adjacent_table[i].begin(); itr != adjacent_table[i].end(); itr++)
+			{
+				if (i < itr->first)
+					fout << i << ',' << itr->first << ',' << ts << ',' << itr->second << endl;
+			}
+		}
+	}
 }
